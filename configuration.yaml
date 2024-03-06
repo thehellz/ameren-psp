@@ -1,0 +1,30 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+multiscrape: !include multiscrape.yaml
+template: !include templates.yaml
+      
+sensor:
+  - platform: time_date
+    display_options:
+      - "time"
+      - "date"
+      
+recorder: 
+  purge_keep_days: 31
+
+logbook:
+  exclude:
+    entities: 
+      - sensor.time
+      
+      
+      
+      

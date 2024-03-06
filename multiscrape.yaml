@@ -1,0 +1,105 @@
+  - resource: 'https://www.ameren.com/api/ameren/promotion/RtpHourlyPricesbyDate'
+    name: 'Ameren PSP'
+    method: POST
+    payload: '{"SelectedDate":"{{ now().year }}-{{ now().month }}-{{ now().day }}"}' 
+    headers:
+      Content-Type : application/json
+    scan_interval: 3600
+    log_response: true
+    sensor:
+      - name: PSP 0000
+        unique_id: psp_0000
+        value_template: '{{ value_json.hourlyPriceDetails[0].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0100
+        unique_id: psp_0100
+        value_template: '{{ value_json.hourlyPriceDetails[1].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0200
+        unique_id: psp_0200
+        value_template: '{{ value_json.hourlyPriceDetails[2].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0300
+        unique_id: psp_0300
+        value_template: '{{ value_json.hourlyPriceDetails[3].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0400
+        unique_id: psp_0400
+        value_template: '{{ value_json.hourlyPriceDetails[4].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0500
+        unique_id: psp_0500
+        value_template: '{{ value_json.hourlyPriceDetails[5].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0600
+        unique_id: psp_0600
+        value_template: '{{ value_json.hourlyPriceDetails[6].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0700
+        unique_id: psp_0700
+        value_template: '{{ value_json.hourlyPriceDetails[7].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0800
+        unique_id: psp_0800
+        value_template: '{{ value_json.hourlyPriceDetails[8].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 0900
+        unique_id: psp_0900
+        value_template: '{{ value_json.hourlyPriceDetails[9].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1000
+        unique_id: psp_1000
+        value_template: '{{ value_json.hourlyPriceDetails[10].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1100
+        unique_id: psp_1100
+        value_template: '{{ value_json.hourlyPriceDetails[11].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1200
+        unique_id: psp_1200
+        value_template: '{{ value_json.hourlyPriceDetails[12].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1300
+        unique_id: psp_1300
+        value_template: '{{ value_json.hourlyPriceDetails[13].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1400
+        unique_id: psp_1400
+        value_template: '{{ value_json.hourlyPriceDetails[14].price }}'
+        unit_of_measurement: "USD/KWh"
+      - name: PSP 1500
+        unique_id: psp_1500
+        value_template: '{{ value_json.hourlyPriceDetails[15].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1600
+        unique_id: psp_1600
+        value_template: '{{ value_json.hourlyPriceDetails[16].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1700
+        unique_id: psp_1700
+        value_template: '{{ value_json.hourlyPriceDetails[17].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1800
+        unique_id: psp_1800
+        value_template: '{{ value_json.hourlyPriceDetails[18].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 1900
+        unique_id: psp_1900
+        value_template: '{{ value_json.hourlyPriceDetails[19].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 2000
+        unique_id: psp_2000
+        value_template: '{{ value_json.hourlyPriceDetails[20].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 2100
+        unique_id: psp_2100
+        value_template: '{{ value_json.hourlyPriceDetails[21].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 2200
+        unique_id: psp_2200
+        value_template: '{{ value_json.hourlyPriceDetails[22].price }}'
+        unit_of_measurement: "USD/kWh"
+      - name: PSP 2300
+        unique_id: psp_2300
+        value_template: '{{ value_json.hourlyPriceDetails[23].price }}'
+        unit_of_measurement: "USD/kWh"

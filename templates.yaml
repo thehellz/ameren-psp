@@ -1,0 +1,161 @@
+
+sensor:
+  #Ameren PSP
+  # The object of this sensor is to coordinate the sensor.psp_XXXX with
+  # corresponding time frames. 
+  - unique_id: current_psp_price
+    name: current psp price
+    unit_of_measurement: 'USD/kWh'
+    state: >
+      {% if states('sensor.time') >= '00:00' and states('sensor.time') <= '00:59' %}
+        {% set current_psp_price = states('sensor.psp_0000') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '01:00' and states('sensor.time') <= '01:59' %}
+        {% set current_psp_price = states('sensor.psp_0100') %} 
+        {{ current_psp_price  | float}}
+      {% elif states('sensor.time') >= '02:00' and states('sensor.time') <= '02:59' %}
+        {% set current_psp_price = states('sensor.psp_0200') %} 
+        {{ current_psp_price | float}} 
+      {% elif states('sensor.time') >= '03:00' and states('sensor.time') <= '03:59' %}
+        {% set current_psp_price = states('sensor.psp_0300') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '04:00' and states('sensor.time') <= '04:59' %}
+        {% set current_psp_price = states('sensor.psp_0400') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '05:00' and states('sensor.time') <= '05:59' %}
+        {% set current_psp_price = states('sensor.psp_0500') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '06:00' and states('sensor.time') <= '06:59' %}
+        {% set current_psp_price = states('sensor.psp_0600') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '07:00' and states('sensor.time') <= '07:59' %}
+        {% set current_psp_price = states('sensor.psp_0700') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '08:00' and states('sensor.time') <= '08:59' %}
+        {% set current_psp_price = states('sensor.psp_0800') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '09:00' and states('sensor.time') <= '09:59' %}
+        {% set current_psp_price = states('sensor.psp_0900') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '10:00' and states('sensor.time') <= '10:59' %}
+        {% set current_psp_price = states('sensor.psp_1000') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '11:00' and states('sensor.time') <= '11:59' %}
+        {% set current_psp_price = states('sensor.psp_1100') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '12:00' and states('sensor.time') <= '12:59' %}
+        {% set current_psp_price = states('sensor.psp_1200') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '13:00' and states('sensor.time') <= '13:59' %}
+        {% set current_psp_price = states('sensor.psp_1300') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '14:00' and states('sensor.time') <= '14:59' %}
+        {% set current_psp_price = states('sensor.psp_1400') %} 
+        {{ current_psp_price | float }}  
+      {% elif states('sensor.time') >= '15:00' and states('sensor.time') <= '15:59' %}
+        {% set current_psp_price = states('sensor.psp_1500') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '16:00' and states('sensor.time') <= '16:59' %}
+        {% set current_psp_price = states('sensor.psp_1600') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '17:00' and states('sensor.time') <= '17:59' %}
+        {% set current_psp_price = states('sensor.psp_1700') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '18:00' and states('sensor.time') <= '18:59' %}
+        {% set current_psp_price = states('sensor.psp_1800') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '19:00' and states('sensor.time') <= '19:59' %}
+        {% set current_psp_price = states('sensor.psp_1900') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '20:00' and states('sensor.time') <= '20:59' %}
+        {% set current_psp_price = states('sensor.psp_2000') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '21:00' and states('sensor.time') <= '21:59' %}
+        {% set current_psp_price = states('sensor.psp_2100') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '22:00' and states('sensor.time') <= '22:59' %}
+        {% set current_psp_price = states('sensor.psp_2200') %} 
+        {{ current_psp_price | float }} 
+      {% elif states('sensor.time') >= '23:00' and states('sensor.time') <= '23:59' %}
+        {% set current_psp_price = states('sensor.psp_2300') %} 
+        {{ current_psp_price | float }} 
+      {% endif %}
+      
+    # GOAL: Create a sensor to compile the next three hours of prices into an average 
+    # INPUT: Next 3 hours of prices
+    # OUTPUT: An averaged number for future_psp_price
+  - unique_id: future_psp_price
+    name: future psp price
+    unit_of_measurement: 'USD/kWh'
+    state: >
+      {% if states('sensor.time') >= '00:00' and states('sensor.time') <= '00:59' %} 
+        {% set future_psp_price = ( (states('sensor.psp_0100') | float ) + ( states('sensor.psp_0200') | float ) + ( states('sensor.psp_0300') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '01:00' and states('sensor.time') <= '01:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_0200') | float ) + ( states('sensor.psp_0300') | float ) + ( states('sensor.psp_0400') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '02:00' and states('sensor.time') <= '02:59' %} 
+        {% set future_psp_price = ( (states('sensor.psp_0300') | float ) + ( states('sensor.psp_0400') | float ) + ( states('sensor.psp_0500') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '03:00' and states('sensor.time') <= '03:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_0400') | float ) + ( states('sensor.psp_0500') | float ) + ( states('sensor.psp_0600') | float )) / 3 %} 
+        {{ future_psp_price }} 
+      {% elif states('sensor.time') >= '04:00' and states('sensor.time') <= '04:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_0500') | float ) + ( states('sensor.psp_0600') | float ) + ( states('sensor.psp_0700') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '05:00' and states('sensor.time') <= '05:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_0600') | float ) + ( states('sensor.psp_0700') | float ) + ( states('sensor.psp_0800') | float )) / 3 %} 
+        {{ future_psp_price}}
+      {% elif states('sensor.time') >= '06:00' and states('sensor.time') <= '06:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_0700') | float ) + ( states('sensor.psp_0800') | float ) + ( states('sensor.psp_0900') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '07:00' and states('sensor.time') <= '07:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_0800') | float ) + ( states('sensor.psp_0900') | float ) + ( states('sensor.psp_1000') | float )) / 3 %} 
+        {{ future_psp_price}}
+      {% elif states('sensor.time') >= '08:00' and states('sensor.time') <= '08:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_0900') | float ) + ( states('sensor.psp_1000') | float ) + ( states('sensor.psp_1100') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '09:00' and states('sensor.time') <= '09:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_1000') | float ) + ( states('sensor.psp_1100') | float ) + ( states('sensor.psp_1200') | float )) / 3 %} 
+        {{ future_psp_price}}
+      {% elif states('sensor.time') >= '10:00' and states('sensor.time') <= '10:59' %} 
+        {% set future_psp_price = ( (states('sensor.psp_1100') | float ) + ( states('sensor.psp_1200') | float ) + ( states('sensor.psp_1300') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '11:00' and states('sensor.time') <= '11:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_1200') | float ) + ( states('sensor.psp_1300') | float ) + ( states('sensor.psp_1400') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '12:00' and states('sensor.time') <= '12:59 '%}
+        {% set future_psp_price = ( (states('sensor.psp_1300') | float ) + ( states('sensor.psp_1400') | float ) + ( states('sensor.psp_1500') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '13:00' and states('sensor.time') <= '13:59' %} 
+        {% set future_psp_price = ( (states('sensor.psp_1400') | float ) + ( states('sensor.psp_1500') | float ) + ( states('sensor.psp_1600') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '14:00' and states('sensor.time') <= '14:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_1500') | float ) + ( states('sensor.psp_1600') | float ) + ( states('sensor.psp_1700') | float )) / 3 %} 
+        {{ future_psp_price }} 
+      {% elif states('sensor.time') >= '15:00' and states('sensor.time') <= '15:59' %} 
+        {% set future_psp_price = ( (states('sensor.psp_1600') | float ) + ( states('sensor.psp_1700') | float ) + ( states('sensor.psp_1800') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '16:00' and states('sensor.time') <= '16:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_1700') | float ) + ( states('sensor.psp_1800') | float ) + ( states('sensor.psp_1900') | float )) / 3 %} 
+        {{ future_psp_price}}
+      {% elif states('sensor.time') >= '17:00' and states('sensor.time') <= '17:59' %} 
+        {% set future_psp_price = ( (states('sensor.psp_1800') | float ) + ( states('sensor.psp_1900') | float ) + ( states('sensor.psp_2000') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '18:00' and states('sensor.time') <= '18:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_1900') | float ) + ( states('sensor.psp_2000') | float ) + ( states('sensor.psp_2100') | float )) / 3 %} 
+        {{ future_psp_price}}
+      {% elif states('sensor.time') >= '19:00' and states('sensor.time') <= '19:59' %} 
+        {% set future_psp_price = ( (states('sensor.psp_2000') | float ) + ( states('sensor.psp_2100') | float ) + ( states('sensor.psp_2200') | float )) / 3 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '20:00' and states('sensor.time') <= '20:59' %}
+        {% set future_psp_price = ( (states('sensor.psp_2100') | float ) + ( states('sensor.psp_2200') | float ) + ( states('sensor.psp_2300') | float )) / 3 %} 
+        {{ future_psp_price}}
+      {% elif states('sensor.time') >= '21:00' and states('sensor.time') <= '21:59' %} 
+        {% set future_psp_price = ( (states('sensor.psp_2200') | float ) + ( states('sensor.psp_2300') | float )) / 2 %} 
+        {{ future_psp_price }}
+      {% elif states('sensor.time') >= '22:00' and states('sensor.time') <= '22:59' %}
+        {% set future_psp_price = (states('sensor.psp_2300') | float ) %} 
+        {{ future_psp_price }}
+      {% endif %} 
+      
